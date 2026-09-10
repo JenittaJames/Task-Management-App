@@ -18,7 +18,7 @@ import { noWhitespaceValidator, htmlMinLengthValidator } from '../../../shared/v
   encapsulation: ViewEncapsulation.None
 })
 export class TaskFormComponent implements OnInit {
-  id = input<string>(); // from route param
+  id = input<string>();
 
   fb = inject(FormBuilder);
   store = inject(TaskStore);
@@ -51,7 +51,7 @@ export class TaskFormComponent implements OnInit {
         this.form.patchValue({
           title: task.title,
           description: task.description,
-          deadline: task.deadline.substring(0, 10), // for date input
+          deadline: task.deadline.substring(0, 10),
           status: task.status
         });
       }

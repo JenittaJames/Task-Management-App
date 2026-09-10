@@ -3,6 +3,18 @@
     <h2>Tasks</h2>
     <a routerLink="/tasks/new" class="btn btn-primary">Add Task</a>
   </div>
+
+  <div class="controls">
+    <input type="text" placeholder="Search tasks..." [value]="searchQuery()" (input)="updateSearch($event)" class="form-control search-input" />
+    <select [value]="sortOption()" (change)="updateSort($event)" class="form-control sort-select">
+      <option value="latest">Added: Latest First</option>
+      <option value="oldest">Added: Oldest First</option>
+      <option value="deadline_newest">Deadline: Newest First</option>
+      <option value="deadline_oldest">Deadline: Oldest First</option>
+      <option value="az">Title: A-Z</option>
+      <option value="za">Title: Z-A</option>
+    </select>
+  </div>
   
   <div class="table-container">
     <table>
@@ -15,7 +27,7 @@
         </tr>
       </thead>
       <tbody>
-        @for (task of tasks(); track task.id) {
+        @for (task of paginatedTasks(); track task.id) {
           <tr>
             <td>{{ task.title }}</td>
             <td>{{ task.deadline | date }}</td>
@@ -23,15 +35,36 @@
             <td class="actions">
               <a [routerLink]="['/tasks', task.id]" class="btn btn-sm btn-info">View</a>
               <a [routerLink]="['/tasks', task.id, 'edit']" class="btn btn-sm btn-warning">Edit</a>
-              <button (click)="deleteTask(task.id)" class="btn btn-sm btn-danger">Delete</button>
+              <button (click)="confirmDelete(task.id)" class="btn btn-sm btn-danger">Delete</button>
             </td>
           </tr>
         } @empty {
           <tr>
-            <td colspan="4" class="text-center">No tasks found. Create one!</td>
+            <td colspan="4" class="text-center">No tasks found.</td>
           </tr>
         }
       </tbody>
     </table>
   </div>
+
+  @if (filteredTasks().length > 0) {
+    <div class="pagination">
+      <button (click)="prevPage()" [disabled]="currentPage() === 1" class="btn btn-sm btn-secondary">Previous</button>
+      <span>Page {{ currentPage() }} of {{ totalPages() }}</span>
+      <button (click)="nextPage()" [disabled]="currentPage() === totalPages()" class="btn btn-sm btn-secondary">Next</button>
+    </div>
+  }
 </div>
+
+@if (taskToDelete() !== null) {
+  <div class="modal-overlay">
+    <div class="modal-content">
+      <h3>Delete Task</h3>
+      <p>Are you sure you want to delete this task?</p>
+      <div class="modal-actions">
+        <button (click)="cancelDelete()" class="btn btn-secondary">Cancel</button>
+        <button (click)="executeDelete()" class="btn btn-danger">Yes, Delete</button>
+      </div>
+    </div>
+  </div>
+}

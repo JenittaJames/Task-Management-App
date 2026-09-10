@@ -6,17 +6,8 @@ import { TaskStatus } from '../../core/models/task.model';
   selector: 'app-status-badge',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <span class="badge" [ngClass]="badgeClass()">
-      {{ status() }}
-    </span>
-  `,
-  styles: [`
-    .badge { padding: 4px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; }
-    .pending { background: #ffeeba; color: #856404; }
-    .in-progress { background: #b8daff; color: #004085; }
-    .completed { background: #c3e6cb; color: #155724; }
-  `]
+  templateUrl: './status-badge.component.html',
+  styleUrls: ['./status-badge.component.scss']
 })
 export class StatusBadgeComponent {
   status = input.required<TaskStatus>();

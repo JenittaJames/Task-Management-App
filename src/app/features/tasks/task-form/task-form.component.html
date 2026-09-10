@@ -4,23 +4,32 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label>Title</label>
-      <input type="text" formControlName="title" class="form-control" />
-      @if (form.get('title')?.touched && form.get('title')?.invalid) {
+      <input type="text" formControlName="title" class="form-control" [class.invalid-input]="form.get('title')?.touched && form.get('title')?.invalid" />
+      @if (form.get('title')?.touched && form.get('title')?.errors?.['required']) {
         <small class="error">Title is required</small>
+      }
+      @if (form.get('title')?.touched && form.get('title')?.errors?.['minlength']) {
+        <small class="error">Title must be at least 3 characters</small>
+      }
+      @if (form.get('title')?.touched && form.get('title')?.errors?.['maxlength']) {
+        <small class="error">Title cannot exceed 100 characters</small>
       }
     </div>
 
     <div class="form-group">
       <label>Description</label>
-      <quill-editor formControlName="description" [modules]="quillModules" class="quill-editor" theme="snow"></quill-editor>
-      @if (form.get('description')?.touched && form.get('description')?.invalid) {
+      <quill-editor formControlName="description" [modules]="quillModules" class="quill-editor" theme="snow" [class.invalid-input]="form.get('description')?.touched && form.get('description')?.invalid"></quill-editor>
+      @if (form.get('description')?.touched && form.get('description')?.errors?.['required']) {
         <small class="error">Description is required</small>
+      }
+      @if (form.get('description')?.touched && form.get('description')?.errors?.['minlength']) {
+        <small class="error">Description must be at least 10 characters</small>
       }
     </div>
 
     <div class="form-group">
       <label>Deadline</label>
-      <input [type]="inputType" formControlName="deadline" class="form-control" [min]="todayDate" placeholder="Select Deadline" (focus)="inputType='date'" (blur)="inputType = form.get('deadline')?.value ? 'date' : 'text'" />
+      <input type="date" formControlName="deadline" class="form-control" [min]="todayDate" [class.invalid-input]="form.get('deadline')?.touched && form.get('deadline')?.invalid" />
       @if (form.get('deadline')?.touched && form.get('deadline')?.errors?.['required']) {
         <small class="error">Deadline is required</small>
       }
@@ -31,15 +40,18 @@
 
     <div class="form-group">
       <label>Status</label>
-      <select formControlName="status" class="form-control">
+      <select formControlName="status" class="form-control" [class.invalid-input]="form.get('status')?.touched && form.get('status')?.invalid">
         @for (status of statuses; track status) {
           <option [value]="status">{{ status }}</option>
         }
       </select>
+      @if (form.get('status')?.touched && form.get('status')?.errors?.['required']) {
+        <small class="error">Status is required</small>
+      }
     </div>
 
     <div class="actions">
-      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Save Task</button>
+      <button type="submit" class="btn btn-primary">Save Task</button>
       <button type="button" class="btn btn-secondary" (click)="router.navigate(['/tasks'])">Cancel</button>
     </div>
   </form>

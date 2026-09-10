@@ -1,0 +1,21 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  background: #343a40;
+  color: white;
+  padding: 1rem 2rem;
+  
+  .brand { font-size: 1.5rem; font-weight: bold; margin-right: 2rem; }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+    
+    a { color: #ccc; text-decoration: none; }
+    a:hover, a.active { color: white; }
+  }
+}
+.content { padding: 2rem; }

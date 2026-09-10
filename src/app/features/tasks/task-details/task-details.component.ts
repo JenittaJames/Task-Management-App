@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TaskStore } from '../../../core/services/task.store';
 import { StatusBadgeComponent } from '../../../shared/status-badge/status-badge.component';
-import { CommentListComponent } from '../../comments/comment-list.component';
+import { CommentListComponent } from '../../comments/comment-list/comment-list.component';
 
 @Component({
   selector: 'app-task-details',

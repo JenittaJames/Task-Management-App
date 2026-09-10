@@ -1,0 +1,15 @@
+.comment-form { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+button { align-self: flex-start; }
+
+.error {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 2px;
+  display: block;
+}
+
+.invalid-input {
+  border-color: #dc3545 !important;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}

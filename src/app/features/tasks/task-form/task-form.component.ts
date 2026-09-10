@@ -26,11 +26,10 @@ export class TaskFormComponent implements OnInit {
   isEditMode = false;
   statuses: TaskStatus[] = ['Pending', 'In Progress', 'Completed'];
   todayDate = new Date().toISOString().substring(0, 10);
-  inputType = 'text';
 
   form = this.fb.group({
-    title: ['', Validators.required],
-    description: ['', Validators.required],
+    title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+    description: ['', [Validators.required, Validators.minLength(10)]],
     deadline: ['', [Validators.required, deadlineNotPast()]],
     status: ['Pending' as TaskStatus, Validators.required]
   });
@@ -54,7 +53,6 @@ export class TaskFormComponent implements OnInit {
           deadline: task.deadline.substring(0, 10), // for date input
           status: task.status
         });
-        this.inputType = 'date';
       }
     }
   }

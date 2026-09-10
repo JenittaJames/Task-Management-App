@@ -17,9 +17,5 @@ export const routes: Routes = [
   { 
     path: 'tasks/:id/edit', 
     loadComponent: () => import('./features/tasks/task-form/task-form.component').then(m => m.TaskFormComponent) 
-  },
-  { 
-    path: 'calendar', 
-    loadComponent: () => import('./features/calendar/task-calendar.component').then(m => m.TaskCalendarComponent) 
   }
 ];

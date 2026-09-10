@@ -8,6 +8,6 @@ export class TaskApiService {
   private http = inject(HttpClient);
 
   getTasks(): Observable<Task[]> {
-    return this.http.get<Task[]>('assets/tasks.json');
+    return this.http.get<Task[]>('/assets/tasks.json');
   }
 }

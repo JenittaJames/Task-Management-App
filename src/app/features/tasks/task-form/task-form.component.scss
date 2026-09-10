@@ -1,7 +1,7 @@
 
 .form-container {
   max-width: 800px;
-  margin: 0 auto;
+  margin: 40px auto;
   background: white;
   padding: 30px;
   border-radius: 8px;
@@ -29,6 +29,13 @@
 .error {
   color: red;
   font-size: 0.85rem;
+  margin-top: 5px;
+  display: block;
+}
+
+.invalid-input {
+  border-color: #dc3545 !important;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
 }
 
 .quill-editor {

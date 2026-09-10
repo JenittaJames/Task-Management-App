@@ -35,7 +35,7 @@ export class CommentStore {
 
     const newReply: Comment = {
       id: crypto.randomUUID(),
-      taskId: '', // inherited
+      taskId: '',
       text,
       createdAt: new Date().toISOString(),
       replies: []

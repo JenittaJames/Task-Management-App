@@ -1,28 +1,34 @@
-import { Component, output } from '@angular/core';
+import { Component, output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, NgForm } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { noWhitespaceValidator } from '../../../shared/validators/whitespace.validator';
 
 @Component({
   selector: 'app-comment-form',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './comment-form.component.html',
   styleUrls: ['./comment-form.component.scss']
 })
 export class CommentFormComponent {
   submitted = output<string>();
-  text = '';
+  
+  private fb = inject(FormBuilder);
+  
+  form = this.fb.group({
+    text: ['', [Validators.required, noWhitespaceValidator(), Validators.minLength(2)]]
+  });
 
-  submit(form: NgForm) {
-    if (form.invalid) {
-      Object.values(form.controls).forEach(c => c.markAsTouched());
+  submit() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
       return;
     }
 
-    if (this.text.trim()) {
-      this.submitted.emit(this.text);
-      this.text = '';
-      form.resetForm();
+    const text = this.form.value.text || '';
+    if (text.trim()) {
+      this.submitted.emit(text.trim());
+      this.form.reset();
     }
   }
 }

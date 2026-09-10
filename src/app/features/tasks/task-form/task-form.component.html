@@ -5,10 +5,10 @@
     <div class="form-group">
       <label>Title</label>
       <input type="text" formControlName="title" class="form-control" [class.invalid-input]="form.get('title')?.touched && form.get('title')?.invalid" />
-      @if (form.get('title')?.touched && form.get('title')?.errors?.['required']) {
-        <small class="error">Title is required</small>
+      @if (form.get('title')?.touched && (form.get('title')?.errors?.['required'] || form.get('title')?.errors?.['whitespace'])) {
+        <small class="error">Title is required and cannot be empty</small>
       }
-      @if (form.get('title')?.touched && form.get('title')?.errors?.['minlength']) {
+      @if (form.get('title')?.touched && form.get('title')?.errors?.['minlength'] && !form.get('title')?.errors?.['whitespace']) {
         <small class="error">Title must be at least 3 characters</small>
       }
       @if (form.get('title')?.touched && form.get('title')?.errors?.['maxlength']) {
@@ -19,10 +19,10 @@
     <div class="form-group">
       <label>Description</label>
       <quill-editor formControlName="description" [modules]="quillModules" class="quill-editor" theme="snow" [class.invalid-input]="form.get('description')?.touched && form.get('description')?.invalid"></quill-editor>
-      @if (form.get('description')?.touched && form.get('description')?.errors?.['required']) {
-        <small class="error">Description is required</small>
+      @if (form.get('description')?.touched && (form.get('description')?.errors?.['required'] || form.get('description')?.errors?.['whitespace'])) {
+        <small class="error">Description is required and cannot be empty</small>
       }
-      @if (form.get('description')?.touched && form.get('description')?.errors?.['minlength']) {
+      @if (form.get('description')?.touched && form.get('description')?.errors?.['minlength'] && !form.get('description')?.errors?.['whitespace']) {
         <small class="error">Description must be at least 10 characters</small>
       }
     </div>

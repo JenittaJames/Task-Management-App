@@ -6,6 +6,7 @@ import { QuillModule } from 'ngx-quill';
 import { TaskStore } from '../../../core/services/task.store';
 import { Task, TaskStatus } from '../../../core/models/task.model';
 import { deadlineNotPast } from '../../../shared/validators/deadline.validator';
+import { noWhitespaceValidator, htmlMinLengthValidator } from '../../../shared/validators/whitespace.validator';
 
 @Component({
   selector: 'app-task-form',
@@ -28,8 +29,8 @@ export class TaskFormComponent implements OnInit {
   todayDate = new Date().toISOString().substring(0, 10);
 
   form = this.fb.group({
-    title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
-    description: ['', [Validators.required, Validators.minLength(10)]],
+    title: ['', [Validators.required, noWhitespaceValidator(), Validators.minLength(3), Validators.maxLength(100)]],
+    description: ['', [Validators.required, noWhitespaceValidator(), htmlMinLengthValidator(10)]],
     deadline: ['', [Validators.required, deadlineNotPast()]],
     status: ['Pending' as TaskStatus, Validators.required]
   });

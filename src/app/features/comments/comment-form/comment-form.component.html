@@ -1,20 +1,16 @@
-<form (ngSubmit)="submit(commentForm)" #commentForm="ngForm" class="comment-form">
+<form [formGroup]="form" (ngSubmit)="submit()" class="comment-form">
   <textarea 
-    name="commentText"
-    [(ngModel)]="text" 
+    formControlName="text"
     placeholder="Write a comment..." 
     rows="3"
-    required
-    minlength="2"
-    #commentText="ngModel"
-    [class.invalid-input]="commentText.invalid && (commentText.dirty || commentText.touched)"
+    [class.invalid-input]="form.get('text')?.invalid && (form.get('text')?.dirty || form.get('text')?.touched)"
   ></textarea>
 
-  @if (commentText.invalid && (commentText.dirty || commentText.touched)) {
-    @if (commentText.errors?.['required']) {
-      <small class="error">Comment cannot be empty.</small>
+  @if (form.get('text')?.invalid && (form.get('text')?.dirty || form.get('text')?.touched)) {
+    @if (form.get('text')?.errors?.['required'] || form.get('text')?.errors?.['whitespace']) {
+      <small class="error">Comment is required and cannot be empty.</small>
     }
-    @if (commentText.errors?.['minlength']) {
+    @if (form.get('text')?.errors?.['minlength'] && !form.get('text')?.errors?.['whitespace']) {
       <small class="error">Comment must be at least 2 characters long.</small>
     }
   }

@@ -1,0 +1,28 @@
+@if (task; as t) {
+  <div class="task-details">
+    <div class="header">
+      <h2>{{ t.title }}</h2>
+      <a [routerLink]="['/tasks', t.id, 'edit']" class="btn btn-warning">Edit Task</a>
+      <a routerLink="/tasks" class="btn btn-secondary ml-2">Back to List</a>
+    </div>
+
+    <div class="meta">
+      <p><strong>Deadline:</strong> {{ t.deadline | date:'medium' }}</p>
+      <p><strong>Status:</strong> <app-status-badge [status]="t.status"></app-status-badge></p>
+    </div>
+
+    <div class="description card ql-editor">
+      <div [innerHTML]="t.description"></div>
+    </div>
+
+    <hr />
+
+    <div class="comments-section">
+      <h3>Comments</h3>
+      <app-comment-list [taskId]="t.id"></app-comment-list>
+    </div>
+  </div>
+} @else {
+  <p>Task not found.</p>
+  <a routerLink="/tasks">Back to List</a>
+}

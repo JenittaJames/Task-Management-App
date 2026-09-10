@@ -1,0 +1,46 @@
+<div class="form-container">
+  <h2>{{ isEditMode ? 'Edit Task' : 'New Task' }}</h2>
+  
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Title</label>
+      <input type="text" formControlName="title" class="form-control" />
+      @if (form.get('title')?.touched && form.get('title')?.invalid) {
+        <small class="error">Title is required</small>
+      }
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+      <quill-editor formControlName="description" [modules]="quillModules" class="quill-editor" theme="snow"></quill-editor>
+      @if (form.get('description')?.touched && form.get('description')?.invalid) {
+        <small class="error">Description is required</small>
+      }
+    </div>
+
+    <div class="form-group">
+      <label>Deadline</label>
+      <input [type]="inputType" formControlName="deadline" class="form-control" [min]="todayDate" placeholder="Select Deadline" (focus)="inputType='date'" (blur)="inputType = form.get('deadline')?.value ? 'date' : 'text'" />
+      @if (form.get('deadline')?.touched && form.get('deadline')?.errors?.['required']) {
+        <small class="error">Deadline is required</small>
+      }
+      @if (form.get('deadline')?.touched && form.get('deadline')?.errors?.['pastDeadline']) {
+        <small class="error">Deadline cannot be in the past</small>
+      }
+    </div>
+
+    <div class="form-group">
+      <label>Status</label>
+      <select formControlName="status" class="form-control">
+        @for (status of statuses; track status) {
+          <option [value]="status">{{ status }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="actions">
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Save Task</button>
+      <button type="button" class="btn btn-secondary" (click)="router.navigate(['/tasks'])">Cancel</button>
+    </div>
+  </form>
+</div>

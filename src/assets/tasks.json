@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1",
+    "title": "Setup Angular Project",
+    "description": "<p>Initialize the <strong>Angular 21</strong> project with standalone components and Signals.</p>",
+    "deadline": "2026-09-15T10:00:00",
+    "status": "Completed"
+  },
+  {
+    "id": "2",
+    "title": "Implement Task Store",
+    "description": "<p>Create a signal-based store for managing state.</p>",
+    "deadline": "2026-09-20T10:00:00",
+    "status": "In Progress"
+  },
+  {
+    "id": "3",
+    "title": "Integrate Calendar",
+    "description": "<p>Add <em>angular-calendar</em> for the bonus requirement.</p>",
+    "deadline": "2026-09-25T10:00:00",
+    "status": "Pending"
+  }
+]
